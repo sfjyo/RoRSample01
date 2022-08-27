@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="col-md-4">
+  <%= @user.name %>
+  </div>
+  <div class="col-md-8">
+  <% if logged_in? and current_user.id == @user.id %>
+    <%= link_to 'new post', new_user_post_path(current_user), class: 'btn btn-primary' %>
+  <% end %>
+  <% if @user.posts.any? %>
+  <h3><%= @user.posts.count %></h3>
+  <table class="table table-striped">
+  <thead>
+  <th>Title</th>
+  <th>Commnet</th>
+  </thead>
+  <tbody>
+  <% @user.posts.each do |post| %>
+    <tr>
+    <td><%= post.title %></td>
+    <td><%= post.comment %></td>
+    <td><% if logged_in? and current_user.id == @user.id %><%= link_to 'edit', edit_user_post_path(current_user, post), class: 'btn btn-primary' %><% end %></td>
+    </tr>
+  <% end %>
+  </tbody>
+  </html>
+  <% end %>
+  </div>
+</div>
